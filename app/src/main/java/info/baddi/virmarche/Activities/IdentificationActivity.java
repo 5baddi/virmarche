@@ -20,12 +20,13 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.HashMap;
 
 import info.baddi.virmarche.Fragments.LoginFragment;
 import info.baddi.virmarche.Fragments.RegisterFragment;
 import info.baddi.virmarche.Helpers.SectionsPagerAdapter;
-import info.baddi.virmarche.Helpers.Session;
 import info.baddi.virmarche.R;
 
 public class IdentificationActivity extends AppCompatActivity {
@@ -39,7 +40,7 @@ public class IdentificationActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    private Session session;
+    private FirebaseAuth idenAuth;
     private HashMap<String, String> userData;
 
     /**
@@ -51,7 +52,8 @@ public class IdentificationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(Session.checkUserSession(getApplicationContext()))
+        idenAuth = FirebaseAuth.getInstance();
+        if(idenAuth.getCurrentUser() != null)
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
         setContentView(R.layout.activity_identification);

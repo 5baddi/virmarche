@@ -5,17 +5,11 @@ import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
-
-import java.util.HashMap;
-
-import info.baddi.virmarche.Helpers.Session;
 import info.baddi.virmarche.R;
 
 public class SplashActivity extends AppCompatActivity {
 
     TextView splashTitle;
-    private Session session;
-    private HashMap<String, String> userData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +27,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 try{
                     sleep(5000);
-
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    if(!Session.checkUserSession(getApplicationContext())) intent = new Intent(getApplicationContext(), IdentificationActivity.class);
-                    startActivity(intent);
-
+                    startActivity(new Intent(getApplicationContext(), IdentificationActivity.class));
                     finish();
                 }catch(InterruptedException ex)
                 {

@@ -13,7 +13,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="240dp"
+            android:layout_height="200dp"
             android:layout_gravity="center">
 
             <ImageView
@@ -37,28 +37,48 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/logEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="true"
-                android:hint="@string/log_tab_username"/>
+                android:inputType="textEmailAddress"
+                android:hint="@string/log_tab_email"/>
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />
 
             <EditText
+                android:id="@+id/logPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPassword"
                 android:hint="@string/log_tab_password"/>
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />
 
-            <Button
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/log_tab"/>
+                android:layout_gravity="center">
+
+                <Button
+                    android:id="@+id/login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:text="@string/log_tab"/>
+
+                <ProgressBar
+                    android:id="@+id/logProgress"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone"/>
+
+            </RelativeLayout>
 
         </LinearLayout>
 

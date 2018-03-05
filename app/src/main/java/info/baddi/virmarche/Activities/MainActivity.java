@@ -2,7 +2,9 @@ package info.baddi.virmarche.Activities;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -13,6 +15,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import info.baddi.virmarche.Fragments.LocateFragment;
 import info.baddi.virmarche.Fragments.LocationFragment;
@@ -26,12 +31,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private String title;
     private Bundle bundle;
+    private FirebaseAuth auth;
+    private FirebaseAuth.AuthStateListener authListener;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        auth = FirebaseAuth.getInstance();
+        authListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if(user == null)
+                    startActivity(new Intent(getApplicationContext(), IdentificationActivity.class));
+                    finish();
+            }
+        };
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle(R.string.app_name);
         setContentView(R.layout.activity_main);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         title = getString(R.string.app_name);
         toolbar.setTitle(title);
         setSupportActionBar(toolbar);
@@ -56,8 +79,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         locate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
                 locate.hide();
                 displayFragment(getString(R.string.fragment_locate), new LocateFragment());
             }
@@ -108,6 +129,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 title = getString(R.string.app_name);
                 toolbar.setTitle(title);
             break;
+            case R.id.logout_action:
+                auth.signOut();
+                startActivity(new Intent(getApplicationContext(), IdentificationActivity.class));
+                finish();
+            break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -122,7 +148,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (id)
         {
             case R.id.nav_locate:
-
                 displayFragment(getString(R.string.fragment_locate), new LocateFragment());
             break;
             case R.id.nav_locations:
@@ -139,5 +164,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     {
         toolbar.setTitle(title);
         fragmentManager.beginTransaction().replace(R.id.frameContainer, fragment).commit();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        if(authListener != null)
+            auth.removeAuthStateListener(authListener);
     }
 }

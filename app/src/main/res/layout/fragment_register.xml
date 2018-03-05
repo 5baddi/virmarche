@@ -12,6 +12,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/regForm"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="20dp"
@@ -23,23 +24,27 @@
                 android:orientation="horizontal">
 
                 <EditText
+                    android:id="@+id/regFirstName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:focusable="true"
-                    android:inputType="textPersonName"
-                    android:hint="@string/log_tab_firstname"/>
+                    android:inputType="textPersonName|textCapSentences"
+                    android:hint="@string/log_tab_firstname"
+                    android:nextFocusDown="@id/regLastName" />
 
                 <Space
                     android:layout_width="20dp"
                     android:layout_height="match_parent" />
 
                 <EditText
+                    android:id="@+id/regLastName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:inputType="textPersonName"
-                    android:hint="@string/log_tab_lastname"/>
+                    android:inputType="textPersonName|textCapSentences"
+                    android:hint="@string/log_tab_lastname"
+                    android:nextFocusDown="@id/regUserName" />
 
             </LinearLayout>
 
@@ -48,6 +53,7 @@
                 android:layout_height="20dp" />
 
             <EditText
+                android:id="@+id/regUserName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -58,6 +64,7 @@
                 android:layout_height="20dp" />
 
             <EditText
+                android:id="@+id/regEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
@@ -68,6 +75,7 @@
                 android:layout_height="20dp" />
 
             <EditText
+                android:id="@+id/regPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
@@ -78,6 +86,7 @@
                 android:layout_height="20dp" />
 
             <EditText
+                android:id="@+id/regPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="phone"
@@ -87,10 +96,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />
 
-            <Button
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/reg_tab"/>
+                android:layout_gravity="center">
+
+                <Button
+                    android:id="@+id/register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:text="@string/reg_tab"/>
+
+                <ProgressBar
+                    android:id="@+id/regProgress"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone"/>
+
+            </RelativeLayout>
 
         </LinearLayout>
 

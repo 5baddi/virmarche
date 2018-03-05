@@ -9,14 +9,11 @@ import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 
 import info.baddi.virmarche.Helpers.Command;
-import info.baddi.virmarche.Helpers.Db;
 import info.baddi.virmarche.Notifications.CurrentLocationNotification;
-import info.baddi.virmarche.R;
 
 public class SmsReceiver extends BroadcastReceiver
 {
     private final SmsManager smsManager = SmsManager.getDefault();
-    private Db db;
 
     public static int id = 1;
 

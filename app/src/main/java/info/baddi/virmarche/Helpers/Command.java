@@ -19,7 +19,6 @@ public class Command
 
     private Context context;
     private SmsManager smsManager;
-    private Db db;
 
     public final static int DEVICE_LOCATION = R.id.nav_locate;
 
@@ -27,18 +26,12 @@ public class Command
     {
         if(this.context == null) this.context = context;
         if(smsManager == null) smsManager = SmsManager.getDefault();
-        if(db == null) db = new Db(this.context);
     }
 
     // Just Device Id
     public void requestCurrentPosition(String devicePhoneNumber, String devicePassword)
     {
-        Cursor data = db.getData("name","phone", db.SETTING_TABLE);
-        if(data != null && data.moveToFirst())
-        {
-            String phoneNumber = data.getString(data.getColumnIndex("value"));
-            if(phoneNumber != "") smsManager.sendTextMessage(devicePhoneNumber, phoneNumber, getPosition + devicePassword, null, null);
-        }
+        //if(phoneNumber != "") smsManager.sendTextMessage(devicePhoneNumber, phoneNumber, getPosition + devicePassword, null, null);
     }
 
     private static int checkResponseType(String response)

@@ -36,6 +36,13 @@
     <string name="log_tab_email">Email</string>
     <string name="log_tab_phone">Phone Number</string>
     <string name="reg_tab">Sign up</string>
+    <string name="empty_fields">Complete all the necessary fields</string>
+    <string name="inc_email">Invalid E-mail address</string>
+    <string name="min_pass">password too short, should at least 8 characters</string>
+    <string name="not_connect">Failed to sign in</string>
+    <string name="not_registred">Failed to sign up</string>
+    <string name="inc_phone_format">Incorrect phone number format</string>
+    <string name="inc_username_format">Username must be at least 5 characters and number</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
