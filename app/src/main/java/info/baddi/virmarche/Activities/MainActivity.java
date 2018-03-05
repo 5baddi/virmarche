@@ -15,13 +15,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import info.baddi.virmarche.Fragments.AboutFragment;
 import info.baddi.virmarche.Fragments.LocateFragment;
 import info.baddi.virmarche.Fragments.LocationFragment;
 import info.baddi.virmarche.Fragments.SettingsFragment;
+import info.baddi.virmarche.Model.User;
 import info.baddi.virmarche.R;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -33,19 +41,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Bundle bundle;
     private FirebaseAuth auth;
     private FirebaseAuth.AuthStateListener authListener;
+    private DatabaseReference rDatabase;
+    private String uid;
 
     @Override
     protected void onStart() {
         super.onStart();
 
         auth = FirebaseAuth.getInstance();
+        rDatabase = FirebaseDatabase.getInstance().getReference();
+
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user == null)
+                if(user == null) {
                     startActivity(new Intent(getApplicationContext(), IdentificationActivity.class));
                     finish();
+                }else {
+                    uid = user.getUid();
+                }
             }
         };
     }
@@ -55,7 +70,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setTitle(R.string.app_name);
         setContentView(R.layout.activity_main);
-        title = getString(R.string.app_name);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        title = getString(R.string.home_action);
         toolbar.setTitle(title);
         setSupportActionBar(toolbar);
 
@@ -75,6 +91,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
 
+        final TextView userEmail = (TextView) findViewById(R.id.userEmail);
+
         locate = (FloatingActionButton) findViewById(R.id.locate);
         locate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 displayFragment(getString(R.string.fragment_locate), new LocateFragment());
             }
         });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -126,8 +145,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 displayFragment(getString(R.string.settings_action), new SettingsFragment());
             break;
             case R.id.about_action:
-                title = getString(R.string.app_name);
-                toolbar.setTitle(title);
+                displayFragment(getString(R.string.about_action), new AboutFragment());
             break;
             case R.id.logout_action:
                 auth.signOut();

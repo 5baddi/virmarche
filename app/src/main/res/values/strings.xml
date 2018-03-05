@@ -6,6 +6,7 @@
     <string name="navigation_open">Open Navigation</string>
     <string name="navigation_close">Close Navigation</string>
 
+    <string name="home_action">Home</string>
     <string name="about_action">About</string>
     <string name="settings_action">Settings</string>
     <string name="logout_action">Logout</string>

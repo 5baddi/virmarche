@@ -5,12 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,16 +22,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.regex.Pattern;
 
 import info.baddi.virmarche.Activities.MainActivity;
-import info.baddi.virmarche.Helpers.UI;
 import info.baddi.virmarche.Helpers.Validator;
 import info.baddi.virmarche.Model.User;
 import info.baddi.virmarche.R;
@@ -219,7 +211,7 @@ public class RegisterFragment extends Fragment {
                     userPassword.setError(getString(R.string.min_pass));
                     return;
                 }
-                else if(Validator.phoneNumber(userPhone.getText().toString())){
+                else if(!Validator.phoneNumber(userPhone.getText().toString())){
                     userPhone.setError(getString(R.string.inc_phone_format));
                     return;
                 }

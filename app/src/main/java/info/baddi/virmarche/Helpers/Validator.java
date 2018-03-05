@@ -1,7 +1,7 @@
 package info.baddi.virmarche.Helpers;
 
-import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
+import android.util.Patterns;
 
 import java.util.regex.Pattern;
 
@@ -16,7 +16,7 @@ public class Validator
         if(TextUtils.isEmpty(phoneNumber))
             return false;
 
-        return PhoneNumberUtils.isGlobalPhoneNumber(phoneNumber);
+        return Patterns.PHONE.matcher(phoneNumber).matches();
     }
 
     public static boolean userName(String username)

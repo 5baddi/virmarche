@@ -25,16 +25,11 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -60,8 +55,8 @@ public class LocateFragment extends Fragment implements OnMapReadyCallback{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Command command = new Command(getActivity());
-        command.requestCurrentPosition("+212612836207", "116417");
+//        Command command = new Command(getActivity());
+//        command.requestCurrentPosition("+212612836207", "116417");
 
         bundle = this.getArguments();
 
