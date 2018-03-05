@@ -10,11 +10,24 @@
         android:background="@android:color/background_light"
         android:orientation="vertical">
 
-        <ImageView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/forest"/>
+            android:layout_gravity="center">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/forest"/>
+
+            <ImageView
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_centerInParent="true"
+                app:srcCompat="@drawable/logo"/>
+
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
