@@ -46,6 +46,7 @@ public class LocateFragment extends Fragment implements OnMapReadyCallback{
     private final int REQUEST_CODE_ASK_PERMISSION = 123;
     private GoogleMap mMap;
     private Bundle bundle;
+    private Command command;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,8 +60,8 @@ public class LocateFragment extends Fragment implements OnMapReadyCallback{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        /*Command command = new Command(getActivity());
-        command.requestCurrentPosition("+212612836207", "116417");*/
+        Command command = new Command(getActivity());
+        command.requestCurrentPosition("+212612836207", "116417");
 
         bundle = this.getArguments();
 

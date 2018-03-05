@@ -5,6 +5,8 @@ import android.content.ContentValues;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.firebase.client.Firebase;
+
 import java.util.ArrayList;
 
 import info.baddi.virmarche.Helpers.Db;
@@ -24,6 +26,8 @@ public class App extends Application
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Firebase.setAndroidContext(this);
 
         if(preferences == null) preferences = PreferenceManager.getDefaultSharedPreferences(this);
         if(editor == null) editor = preferences.edit();

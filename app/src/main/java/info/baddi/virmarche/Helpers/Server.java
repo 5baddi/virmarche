@@ -1,3 +1,4 @@
+/*
 package info.baddi.virmarche.Helpers;
 
 import android.util.Log;
@@ -12,9 +13,11 @@ import com.mongodb.client.MongoDatabase;
 
 import java.util.Arrays;
 
+*/
 /**
  * Created by 5Baddi on 02-Mar-18.
- */
+ *//*
+
 
 public class Server
 {
@@ -45,3 +48,4 @@ public class Server
         }
     }
 }
+*/

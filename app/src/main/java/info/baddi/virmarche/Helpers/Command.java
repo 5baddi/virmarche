@@ -33,11 +33,11 @@ public class Command
     // Just Device Id
     public void requestCurrentPosition(String devicePhoneNumber, String devicePassword)
     {
-        Cursor settings = db.getData("name","phone", db.SETTING_TABLE);
-        if(settings != null && settings.moveToFirst())
+        Cursor data = db.getData("name","phone", db.SETTING_TABLE);
+        if(data != null && data.moveToFirst())
         {
-            String phoneNumber = settings.getString(settings.getColumnIndex("value"));
-            smsManager.sendTextMessage(devicePhoneNumber, phoneNumber, getPosition + devicePassword, null, null);
+            String phoneNumber = data.getString(data.getColumnIndex("value"));
+            if(phoneNumber != "") smsManager.sendTextMessage(devicePhoneNumber, phoneNumber, getPosition + devicePassword, null, null);
         }
     }
 

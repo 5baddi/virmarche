@@ -22,9 +22,6 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        session = new Session(getApplicationContext());
-        userData = session.getUserSession();
-
         splashTitle = (TextView) findViewById(R.id.splashTitle);
 
         // Set Custom Font to Splash Title
@@ -38,7 +35,7 @@ public class SplashActivity extends AppCompatActivity {
                     sleep(5000);
 
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    if(!session.checkUserSession()) intent = new Intent(getApplicationContext(), IdentificationActivity.class);
+                    if(!Session.checkUserSession(getApplicationContext())) intent = new Intent(getApplicationContext(), IdentificationActivity.class);
                     startActivity(intent);
 
                     finish();

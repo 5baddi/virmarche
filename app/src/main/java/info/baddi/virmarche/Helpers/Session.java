@@ -42,12 +42,13 @@ public class Session
         return userData;
     }
 
-    public boolean checkUserSession()
+    public static boolean checkUserSession(Context context)
     {
-        HashMap<String, String> userData = getUserSession();
-        if(userData.get("userId") == "0" || userData.get("userName") == "" || userData.get("userHash") == "") return false;
+        Session session = new Session(context);
+        HashMap<String, String> userData = session.getUserSession();
+        if(userData.get("userId") != "0" || userData.get("userName").length() > 0 || userData.get("userHash").length() > 0) return true;
 
-        return true;
+        return false;
     }
 
     public void destroyUserSession()

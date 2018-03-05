@@ -51,11 +51,8 @@ public class IdentificationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        session = new Session(getApplicationContext());
-        userData = session.getUserSession();
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        if(session.checkUserSession()) intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
+        if(Session.checkUserSession(getApplicationContext()))
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
         setContentView(R.layout.activity_identification);
 
