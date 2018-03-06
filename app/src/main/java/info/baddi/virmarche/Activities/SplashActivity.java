@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import info.baddi.virmarche.Helpers.Info;
 import info.baddi.virmarche.R;
+import info.baddi.virmarche.config.App;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -28,7 +29,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try{
-                    sleep(5000);
+                    sleep(App.SPLASH_DURATION);
                     if(Info.isOnline(getApplicationContext()))
                         startActivity(new Intent(getApplicationContext(), IdentificationActivity.class));
                     else

@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import info.baddi.virmarche.Fragments.AboutFragment;
+import info.baddi.virmarche.Fragments.DeviceFragment;
 import info.baddi.virmarche.Fragments.LocateFragment;
 import info.baddi.virmarche.Fragments.LocationFragment;
 import info.baddi.virmarche.Fragments.SettingsFragment;
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         fragmentManager = getFragmentManager();
 
+
         int updateFragment = getIntent().getIntExtra("fragment", 0);
         if(updateFragment != 0)
         {
@@ -90,6 +92,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             }
         }
+
+        displayFragment(title, new DeviceFragment());
 
         final TextView userEmail = (TextView) findViewById(R.id.userEmail);
 
@@ -141,6 +145,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //noinspection SimplifiableIfStatement
         switch (id)
         {
+            case R.id.nav_device:
+                displayFragment(getString(R.string.home_action), new DeviceFragment());
+            break;
             case R.id.settings_action:
                 displayFragment(getString(R.string.settings_action), new SettingsFragment());
             break;
@@ -165,11 +172,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (id)
         {
+            case R.id.nav_device:
+                displayFragment(getString(R.string.home_action), new DeviceFragment());
+            break;
             case R.id.nav_locate:
                 displayFragment(getString(R.string.fragment_locate), new LocateFragment());
             break;
             case R.id.nav_locations:
                 displayFragment(getString(R.string.fragment_locate), new LocationFragment());
+            break;
+            case R.id.nav_about:
+                //displayFragment(getString(R.string.about_action), new AboutFragment());
             break;
         }
 

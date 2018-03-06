@@ -5,6 +5,11 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_device"
+            android:icon="@drawable/ic_device"
+            android:checked="true"
+            android:title="Devices" />
+        <item
             android:id="@+id/nav_locate"
             android:icon="@drawable/ic_dialog_locate"
             android:title="Current Location" />
@@ -17,13 +22,9 @@
     <item android:title="Outside the App">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_about"
                 android:icon="@drawable/ic_menu_share"
                 android:title="@string/about_action" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
         </menu>
     </item>
 
