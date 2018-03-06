@@ -5,6 +5,8 @@ import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import info.baddi.virmarche.Helpers.Info;
 import info.baddi.virmarche.R;
 
 public class SplashActivity extends AppCompatActivity {
@@ -27,7 +29,10 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 try{
                     sleep(5000);
-                    startActivity(new Intent(getApplicationContext(), IdentificationActivity.class));
+                    if(Info.isOnline(getApplicationContext()))
+                        startActivity(new Intent(getApplicationContext(), IdentificationActivity.class));
+                    else
+                        startActivity(new Intent(getApplicationContext(), NetworkActivity.class));
                     finish();
                 }catch(InterruptedException ex)
                 {
