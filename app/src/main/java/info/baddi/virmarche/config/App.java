@@ -12,7 +12,6 @@ import com.firebase.client.Firebase;
 
 public class App extends Application
 {
-    public final static String FIRE_DATABASE = "https://virmarche-c7a6e.firebaseio.com/";
     public final static int SPLASH_DURATION = 3000;
 
     private SharedPreferences preferences;

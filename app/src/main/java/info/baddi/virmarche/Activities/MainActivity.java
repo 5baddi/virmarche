@@ -1,11 +1,13 @@
 package info.baddi.virmarche.Activities;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,25 +45,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Bundle bundle;
     private FirebaseAuth auth;
     private FirebaseAuth.AuthStateListener authListener;
-    private DatabaseReference rDatabase;
-    private String uid;
+    private FirebaseDatabase database;
+    private DatabaseReference refData;
+    private FirebaseUser authUser;
 
     @Override
     protected void onStart() {
         super.onStart();
 
         auth = FirebaseAuth.getInstance();
-        rDatabase = FirebaseDatabase.getInstance().getReference();
+        database = FirebaseDatabase.getInstance();
+        refData = database.getReference();
+        if(refData == null)
+            Log.i("n: here:", "null");
+        else
+            Log.i("n: here:", "not");
 
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user == null) {
+                authUser = firebaseAuth.getCurrentUser();
+                if(authUser == null) {
                     startActivity(new Intent(getApplicationContext(), IdentificationActivity.class));
                     finish();
-                }else {
-                    uid = user.getUid();
                 }
             }
         };
@@ -93,10 +100,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
 
-        displayFragment(title, new DeviceFragment());
-
-        final TextView userEmail = (TextView) findViewById(R.id.userEmail);
-
         locate = (FloatingActionButton) findViewById(R.id.locate);
         locate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +109,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_open, R.string.navigation_close);
@@ -115,6 +117,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        displayFragment(title, new DeviceFragment());
+
+        final TextView userEmail = (TextView) findViewById(R.id.userEmail);
+
+        /*refData.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.child("users").child(authUser.getUid()).getValue(User.class);
+                userEmail.setText(user.email);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });*/
     }
 
     @Override
@@ -141,13 +161,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-
         //noinspection SimplifiableIfStatement
         switch (id)
         {
-            case R.id.nav_device:
-                displayFragment(getString(R.string.home_action), new DeviceFragment());
-            break;
             case R.id.settings_action:
                 displayFragment(getString(R.string.settings_action), new SettingsFragment());
             break;
@@ -160,6 +176,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 finish();
             break;
         }
+
+        uncheckNavMenu((NavigationView) findViewById(R.id.nav_view));
 
         return super.onOptionsItemSelected(item);
     }
@@ -186,6 +204,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             break;
         }
 
+        item.setChecked(true);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -195,6 +215,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     {
         toolbar.setTitle(title);
         fragmentManager.beginTransaction().replace(R.id.frameContainer, fragment).commit();
+    }
+
+    private void uncheckNavMenu(NavigationView nav)
+    {
+        int size = nav.getMenu().size(), i = 0;
+        while(i < size){
+            nav.getMenu().getItem(i).setChecked(false);
+            i++;
+        }
     }
 
     @Override

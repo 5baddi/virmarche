@@ -18,7 +18,16 @@
     <string name="fragment_locate">Current Device Location</string>
     <string name="fragment_location">Track Device</string>
 
-    <string name="device_phone">Device Phone Number</string>
+    <string name="new_device">Add New Device</string>
+    <string name="device_name">Device Name</string>
+    <string name="device_emei">Device IMEI</string>
+    <string name="device_sim">Device SIM Number</string>
+    <string name="device_model">Device Model</string>
+    <string name="device_name_error">Enter Device Name is Required</string>
+    <string name="device_imei_error">Enter Device Imei is Required</string>
+    <string name="device_sim_error">Enter Device SIM Number is Required</string>
+    <string name="device_failed">Failed to add device, try again</string>
+
 
     <string name="settings_phone_number">Your Phone Number</string>
     <string name="settings_sms_amount">SMS Amount Cost</string>
